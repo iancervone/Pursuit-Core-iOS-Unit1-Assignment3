@@ -68,6 +68,153 @@ For this, your console might look like this:
 > 
 > Exit
 
+
+******************************************
+QUESTION ONE CODE
+******************************************
+
+//
+//  main.swift
+//  calculator
+//
+//  Created by Ian Cervone on 7/20/19.
+//  Copyright © 2019 Ian Cervone. All rights reserved.
+//
+
+import Foundation
+func welcome() {
+print("This is not the smartest calculator, it can only do basic math using +, -, *, /,")
+print("Enter a math problem and press enter")
+}
+welcome()
+
+
+let userInput = readLine()!
+var leftNum = Double()
+var rightNum = Double()
+var mathOperator = String()
+
+
+func processInput() {
+let inputText = userInput.components(separatedBy: " ")
+var wrappedLeftNum = Double(inputText[0])
+if let num1 = wrappedLeftNum {
+leftNum = num1
+}
+var wrappedRightNum = Double(inputText[2])
+if let num2 = wrappedRightNum {
+rightNum = num2
+}
+mathOperator = inputText[1]
+}
+processInput()
+
+
+
+var operations: ([String: (Double, Double) -> Double]) = ["+": { $0 + $1 },
+"-": { $0 - $1 },
+"*": { $0 * $1 },
+"/": { $0 / $1 }]
+
+
+
+func calculate() -> Double {
+var sum = Double()
+for (key, value) in operations {
+if key == mathOperator {
+sum = value(leftNum, rightNum)
+}
+}
+return sum
+}
+
+
+func random() {
+if mathOperator == "?" {
+var randomArray: [String] = ["+", "-", "*", "/"]
+var wrappedRandom = randomArray.randomElement()
+if let sign = wrappedRandom {
+mathOperator = sign
+}
+print("Can you guess the math operation that created this number?")
+}
+}
+random()
+print(calculate())
+var userGuess = readLine()!
+
+func guess() {
+while userGuess != mathOperator {
+print("guess again")
+userGuess = readLine()!
+if userGuess == mathOperator {
+print("you have chosen wisley")
+}
+}
+}
+guess()
+////**********************************
+
+
+
+//for x in operations {
+//    if mathOperator == "+" {
+//    print(leftNum + rightNum)
+//} else {
+//    if mathOperator == "-" {
+//    print(leftNum - rightNum)
+//} else {
+//    if mathOperator == "*" {
+//    print(leftNum * rightNum)
+//} else {
+//    if mathOperator == "/" {
+//    print(leftNum / rightNum)
+//    } else {
+//        print("What are you doing? This is a calculator use: +, -, *, /, and lets do some math.  Also this is not the smartest calculator so you must enter numbers as a decimal")
+//        }
+//}
+//}
+//}
+//}
+
+
+
+////**********************************
+
+
+
+//    func mathOperator(left: Double, operation: String, right: Double) -> Double {
+//            switch {
+//            case "+":
+//                print(leftNum + rightNum)
+//                return (leftNum + rightNum)
+//            case "-":
+//                print(leftNum - rightNum)
+//                return (leftNum - rightNum)
+//            case "*":
+//                print(leftNum * rightNum)
+//                return (leftNum * rightNum)
+//            case "/":
+//                print(leftNum / rightNum)
+//                return (leftNum / rightNum)
+//            default:
+//                print("What are you doing? This is a calculator use: +, -, *, /, and lets do some math")
+//                return DBL_MAX
+//            }
+//        }
+
+
+
+
+
+
+
+
+
+******************************************
+******************************************
+
+
 ## Question Two:
 ### Add filter, map and reduce to your calculator
 
